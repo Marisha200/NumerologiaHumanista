@@ -17,6 +17,7 @@
               'serif': ['Playfair Display', 'serif'],
             },
             colors: {
+              // Paleta Azul inspirada en Calm.es
               'calm-primary': { light: '#B0E0E6', DEFAULT: '#6495ED', dark: '#4682B4', },
               'calm-secondary': '#8FBC8F',
               'calm-bg': '#F7F9FC',
@@ -29,12 +30,12 @@
       }
     </script>
     <style>
-        /* Estilos sin cambios */
+        /* Estilos adicionales */
         .result-section { margin-top: 1.5rem; padding: 1.5rem; background-color: #FFFFFF; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); border: 1px solid #B0E0E6; }
         .result-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: bold; color: #4682B4; margin-bottom: 0.75rem; border-bottom: 1px solid #B0E0E6; padding-bottom: 0.5rem; }
         .calculation-explanation { font-size: 0.8rem; font-style: italic; color: #6b7280; margin-bottom: 0.75rem; margin-top: 0.25rem; }
         .result-value { font-size: 1.5rem; font-weight: bold; color: #6495ED; display: inline-block; margin-left: 0.5rem; }
-        .interpretation-text { font-size: 0.95rem; line-height: 1.6; color: #555555; white-space: pre-line; }
+        .interpretation-text { font-size: 0.95rem; line-height: 1.6; color: #555555; white-space: pre-line; } /* white-space respeta saltos de línea */
         .letter-breakdown span { display: inline-block; min-width: 25px; margin: 2px; padding: 2px 4px; border: 1px solid #ccc; border-radius: 3px; background-color: #f0f0f0; font-family: monospace; text-align: center; }
         label { margin-bottom: 0.25rem; display: block; }
         input[type="text"], input[type="date"] { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.375rem; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); outline: none; }
@@ -51,14 +52,44 @@
         <h1 class="text-3xl md:text-4xl font-bold text-center text-calm-primary-dark mb-8 font-serif">Calculadora Numerológica Detallada</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-6 text-sm">
-             <div><label for="nombres" class="font-medium text-calm-text-soft">Nombres:</label><input type="text" id="nombres" name="nombres" required placeholder="Ingresá todos tus nombres" ></div>
-             <div><label for="apellidosPaternos" class="font-medium text-calm-text-soft">Apellidos Paternos:</label><input type="text" id="apellidosPaternos" name="apellidosPaternos" placeholder="Hasta 2 apellidos" ></div>
-             <div><label for="apellidosMaternos" class="font-medium text-calm-text-soft">Apellidos Maternos:</label><input type="text" id="apellidosMaternos" name="apellidosMaternos" placeholder="Hasta 2 apellidos" ></div>
-             <div><label for="abuelaPaterna" class="font-medium text-calm-text-soft">Apellidos Abuela Paterna:</label><input type="text" id="abuelaPaterna" name="abuelaPaterna" placeholder="Hasta 2 apellidos (Opcional)" ></div>
-             <div><label for="abuelaMaterna" class="font-medium text-calm-text-soft">Apellidos Abuela Materna:</label><input type="text" id="abuelaMaterna" name="abuelaMaterna" placeholder="Hasta 2 apellidos (Opcional)" ></div>
-             <div><label for="fechaNacimiento" class="font-medium text-calm-text-soft">Fecha de Nacimiento:</label><input type="date" id="fechaNacimiento" name="fechaNacimiento" required ></div>
+            <div>
+                {/* 1. Nombres */}
+                <label for="nombres" class="font-medium text-calm-text-soft">1. Nombres:</label>
+                <input type="text" id="nombres" name="nombres" required placeholder="Ingresá todos tus nombres (sin apellidos)" >
+            </div>
+            <div>
+                {/* 6. Fecha Nacimiento */}
+                <label for="fechaNacimiento" class="font-medium text-calm-text-soft">6. Fecha de Nacimiento:</label>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required >
+            </div>
+            <div>
+                {/* 2. Apellido Paterno */}
+                <label for="apellidosPaternos" class="font-medium text-calm-text-soft">2. Apellido Paterno:</label>
+                <input type="text" id="apellidosPaternos" name="apellidosPaternos" placeholder="Apellido/s del padre" >
+            </div>
+            <div>
+                 {/* 3. Apellido Materno */}
+                <label for="apellidosMaternos" class="font-medium text-calm-text-soft">3. Apellido Materno:</label>
+                <input type="text" id="apellidosMaternos" name="apellidosMaternos" placeholder="Apellido/s de la madre" >
+            </div>
+             <div>
+                 {/* 5. Apellido Abuela Paterna */}
+                <label for="abuelaPaterna" class="font-medium text-calm-text-soft">5. Apellido/s Abuela Paterna:</label>
+                <input type="text" id="abuelaPaterna" name="abuelaPaterna" placeholder="Apellido/s (Opcional)" >
+            </div>
+             <div>
+                 {/* 4. Apellido Abuela Materna */}
+                <label for="abuelaMaterna" class="font-medium text-calm-text-soft">4. Apellido/s Abuela Materna:</label>
+                <input type="text" id="abuelaMaterna" name="abuelaMaterna" placeholder="Apellido/s (Opcional)" >
+            </div>
+
         </div>
-        <p class="text-xs text-center text-gray-500 mb-8">**Importante:** Ingresá tus nombres y apellidos completos tal como figuran en tu partida de nacimiento para obtener los cálculos más precisos (Expresión, Alma, Personalidad). Los apellidos de las abuelas son para análisis más profundos (opcionales).</p>
+
+        <p class="text-xs text-center text-gray-500 mb-8">
+            **Importante:** Para los cálculos principales (Expresión, Alma, Personalidad) usaremos los campos 1, 2 y 3. Ingresalos tal como figuran en tu partida de nacimiento. Los apellidos de las abuelas (4 y 5) son opcionales para futuros análisis de linaje.
+        </p>
+
+
         <div class="text-center mb-10">
             <button id="calculateButton" class="bg-calm-primary hover:bg-calm-primary-dark text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 shadow-md">
                 Calcular Mis Números
@@ -72,11 +103,11 @@
         </div>
 
     </div> <script>
-        // --- Constantes y Mapeos (sin cambios) ---
+        // --- Constantes y Mapeos ---
         const letterValues = { 'A': 1, 'J': 1, 'S': 1, 'Á': 1, 'B': 2, 'K': 2, 'T': 2, 'C': 3, 'L': 3, 'U': 3, 'Ú': 3, 'D': 4, 'M': 4, 'V': 4, 'E': 5, 'N': 5, 'W': 5, 'É': 5, 'Ñ': 5, 'F': 6, 'O': 6, 'X': 6, 'Ó': 6, 'G': 7, 'P': 7, 'Y': 7, 'H': 8, 'Q': 8, 'Z': 8, 'I': 9, 'R': 9, 'Í': 9 };
         const vowels = "AEIOUÁÉÍÓÚ";
 
-        // --- Referencias a Elementos del DOM (sin cambios) ---
+        // --- Referencias a Elementos del DOM ---
         const nombresInput = document.getElementById('nombres');
         const paternalSurnamesInput = document.getElementById('apellidosPaternos');
         const maternalSurnamesInput = document.getElementById('apellidosMaternos');
@@ -91,168 +122,72 @@
         // --- Variable para guardar las interpretaciones cargadas ---
         let loadedInterpretations = null;
 
-        // --- Función para Cargar Interpretaciones desde JSON (sin cambios) ---
+        // --- Función para Cargar Interpretaciones desde JSON ---
         async function loadInterpretations() {
             if (loadedInterpretations) return true;
             loadingMessage.style.display = 'block';
             errorMessage.style.display = 'none';
-            resultsArea.innerHTML = '';
+            resultsArea.innerHTML = ''; // Limpiar resultados mientras carga
             try {
-                console.log("Intentando cargar interpretaciones.json..."); // Log
-                const response = await fetch('interpretaciones.json'); // Asegúrate que este archivo está en la MISMA carpeta que el HTML
-                if (!response.ok) {
-                    throw new Error(`Error HTTP: ${response.status} - ${response.statusText}. ¿Está 'interpretaciones.json' en la misma carpeta que el HTML?`);
-                }
+                console.log("Intentando cargar interpretaciones.json...");
+                const response = await fetch('interpretaciones.json'); // Asume que está en la misma carpeta
+                if (!response.ok) throw new Error(`Error HTTP: ${response.status} - ${response.statusText}. ¿Está 'interpretaciones.json' en la misma carpeta?`);
                 loadedInterpretations = await response.json();
                 loadingMessage.style.display = 'none';
-                console.log("Interpretaciones cargadas exitosamente:", loadedInterpretations); // Log
+                console.log("Interpretaciones cargadas exitosamente.");
                 return true;
             } catch (error) {
                 console.error("Error al cargar interpretaciones.json:", error);
                 loadingMessage.style.display = 'none';
-                errorMessage.textContent = `Error al cargar interpretaciones: ${error.message}. Verificá que 'interpretaciones.json' exista en la misma carpeta y no tenga errores de sintaxis.`; // Mensaje más detallado
+                errorMessage.textContent = `Error al cargar interpretaciones: ${error.message}. Verificá que 'interpretaciones.json' exista en la misma carpeta y no tenga errores de sintaxis.`;
                 errorMessage.style.display = 'block';
                 resultsArea.innerHTML = '';
                 return false;
             }
         }
 
-        // --- Funciones de Cálculo (sin cambios) ---
-        function reduceNumber(num) { /* ... (igual que antes) ... */
-            let strNum = String(num);
-            while (strNum.length > 1 && strNum !== '11' && strNum !== '22' && strNum !== '33') {
-                let sum = 0;
-                for (let digit of strNum) { sum += parseInt(digit); }
-                strNum = String(sum);
-            }
-            return parseInt(strNum);
-         }
-        function normalizeText(text) { /* ... (igual que antes) ... */
-             return text.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-         }
-        function getLetterValue(normalizedLetter) { /* ... (igual que antes) ... */
-             if (normalizedLetter === 'Ñ') return 5;
-             return letterValues[normalizedLetter] || 0;
-         }
-        function calculateExpression(fullName) { /* ... (igual que antes) ... */
-            let sum = 0;
-            let breakdown = '';
-            const upperFullName = fullName.toUpperCase();
-            const normalizedFullName = normalizeText(fullName);
-            for (let i = 0; i < normalizedFullName.length; i++) {
-                const normalizedLetter = normalizedFullName[i];
-                const originalLetter = upperFullName[i] || normalizedLetter;
-                const value = getLetterValue(normalizedLetter);
-                 if (value > 0) {
-                    sum += value;
-                    breakdown += `<span>${originalLetter}=${value}</span> `;
-                } else if (upperFullName[i] === ' ') {
-                    breakdown += '<br>';
-                }
-            }
-            const reducedSum = reduceNumber(sum);
-            return { value: reducedSum, calculation: sum, breakdown: breakdown.trim() };
-         }
-        function calculateSoulUrge(fullName) { /* ... (igual que antes) ... */
-            let sum = 0;
-            const normalizedVowels = normalizeText(vowels);
-            const upperFullName = fullName.toUpperCase();
-            const normalizedFullName = normalizeText(fullName);
-             for (let i = 0; i < normalizedFullName.length; i++) {
-                const normalizedLetter = normalizedFullName[i];
-                if (normalizedVowels.includes(normalizedLetter)) {
-                    sum += getLetterValue(normalizedLetter);
-                }
-            }
-            return reduceNumber(sum);
-         }
-        function calculatePersonality(fullName) { /* ... (igual que antes) ... */
-             let sum = 0;
-            const normalizedVowels = normalizeText(vowels);
-            const upperFullName = fullName.toUpperCase();
-            const normalizedFullName = normalizeText(fullName);
-             for (let i = 0; i < normalizedFullName.length; i++) {
-                const normalizedLetter = normalizedFullName[i];
-                const value = getLetterValue(normalizedLetter);
-                if (value > 0 && !normalizedVowels.includes(normalizedLetter)) {
-                     sum += value;
-                }
-                 else if (upperFullName[i] === 'Ñ') {
-                     sum += 5;
-                 }
-            }
-            return reduceNumber(sum);
-         }
-        function calculateLifePath(dateString) { /* ... (igual que antes) ... */
-             if (!dateString) return { value: 0, calculation: 'Fecha inválida' };
-            try {
-                const dateParts = dateString.split('-');
-                if (dateParts.length !== 3) throw new Error("Formato incorrecto");
-                const year = parseInt(dateParts[0]);
-                const month = parseInt(dateParts[1]);
-                const day = parseInt(dateParts[2]);
-                if (isNaN(year) || isNaN(month) || isNaN(day)) throw new Error("Componentes inválidos");
-                const reducedMonth = reduceNumber(month);
-                const reducedDay = reduceNumber(day);
-                const reducedYear = reduceNumber(year);
-                const finalSum = reducedMonth + reducedDay + reducedYear;
-                const reducedFinalSum = reduceNumber(finalSum);
-                const displayDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
-                const calculation = `${displayDate} → ${reducedDay} + ${reducedMonth} + ${reducedYear} = ${finalSum} → ${reducedFinalSum}`;
-                return { value: reducedFinalSum, calculation: calculation };
-            } catch (error) {
-                console.error("Error calculando Sendero de Vida:", error);
-                return { value: 0, calculation: 'Error en fecha' };
-            }
-         }
-        function calculatePersonalYear(dateString) { /* ... (igual que antes) ... */
-             if (!dateString) return { value: 0, calculation: 'Fecha inválida' };
-             try {
-                const dateParts = dateString.split('-');
-                if (dateParts.length !== 3) throw new Error("Formato incorrecto");
-                const month = parseInt(dateParts[1]);
-                const day = parseInt(dateParts[2]);
-                const currentYear = new Date().getFullYear();
-                if (isNaN(month) || isNaN(day)) throw new Error("Componentes inválidos");
-                const reducedMonth = reduceNumber(month);
-                const reducedDay = reduceNumber(day);
-                let sumYearDigits = 0;
-                for (let digit of String(currentYear)) { sumYearDigits += parseInt(digit); }
-                const reducedCurrentYear = reduceNumber(sumYearDigits);
-                const finalSum = reducedDay + reducedMonth + reducedCurrentYear;
-                let reducedFinalSum = finalSum;
-                while (reducedFinalSum > 9) {
-                    let tempSum = 0;
-                    for (let digit of String(reducedFinalSum)) { tempSum += parseInt(digit); }
-                    reducedFinalSum = tempSum;
-                 }
-                 if (reducedFinalSum === 0) reducedFinalSum = 9;
-                const calculation = `Día(${day}) + Mes(${month}) + Año Actual(${currentYear}) → ${reducedDay} + ${reducedMonth} + ${reducedCurrentYear} = ${finalSum} → ${reducedFinalSum}`;
-                return { value: reducedFinalSum, calculation: calculation };
-             } catch (error) {
-                console.error("Error calculando Año Personal:", error);
-                return { value: 0, calculation: 'Error en fecha' };
-             }
-         }
+        // --- Funciones de Cálculo ---
+        function reduceNumber(num) { let strNum = String(num); while (strNum.length > 1 && strNum !== '11' && strNum !== '22' && strNum !== '33') { let sum = 0; for (let digit of strNum) { sum += parseInt(digit); } strNum = String(sum); } return parseInt(strNum); }
+        function normalizeText(text) { return text.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+        function getLetterValue(normalizedLetter) { if (normalizedLetter === 'Ñ') return 5; return letterValues[normalizedLetter] || 0; }
+        function calculateExpression(fullName) { let sum = 0; let breakdown = ''; const upperFullName = fullName.toUpperCase(); const normalizedFullName = normalizeText(fullName); for (let i = 0; i < normalizedFullName.length; i++) { const normalizedLetter = normalizedFullName[i]; const originalLetter = upperFullName[i] || normalizedLetter; const value = getLetterValue(normalizedLetter); if (value > 0) { sum += value; breakdown += `<span>${originalLetter}=${value}</span> `; } else if (upperFullName[i] === ' ') { breakdown += '<br>'; } } const reducedSum = reduceNumber(sum); return { value: reducedSum, calculation: sum, breakdown: breakdown.trim() }; }
+        function calculateSoulUrge(fullName) { let sum = 0; const normalizedVowels = normalizeText(vowels); const upperFullName = fullName.toUpperCase(); const normalizedFullName = normalizeText(fullName); for (let i = 0; i < normalizedFullName.length; i++) { const normalizedLetter = normalizedFullName[i]; if (normalizedVowels.includes(normalizedLetter)) { sum += getLetterValue(normalizedLetter); } } return reduceNumber(sum); }
+        function calculatePersonality(fullName) { let sum = 0; const normalizedVowels = normalizeText(vowels); const upperFullName = fullName.toUpperCase(); const normalizedFullName = normalizeText(fullName); for (let i = 0; i < normalizedFullName.length; i++) { const normalizedLetter = normalizedFullName[i]; const value = getLetterValue(normalizedLetter); if (value > 0 && !normalizedVowels.includes(normalizedLetter)) { sum += value; } else if (upperFullName[i] === 'Ñ') { sum += 5; } } return reduceNumber(sum); }
+        function calculateLifePath(dateString) { if (!dateString) return { value: 0, calculation: 'Fecha inválida' }; try { const dateParts = dateString.split('-'); if (dateParts.length !== 3) throw new Error("Formato incorrecto"); const year = parseInt(dateParts[0]); const month = parseInt(dateParts[1]); const day = parseInt(dateParts[2]); if (isNaN(year) || isNaN(month) || isNaN(day)) throw new Error("Componentes inválidos"); const reducedMonth = reduceNumber(month); const reducedDay = reduceNumber(day); const reducedYear = reduceNumber(year); const finalSum = reducedMonth + reducedDay + reducedYear; const reducedFinalSum = reduceNumber(finalSum); const displayDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`; const calculation = `${displayDate} → ${reducedDay} + ${reducedMonth} + ${reducedYear} = ${finalSum} → ${reducedFinalSum}`; return { value: reducedFinalSum, calculation: calculation }; } catch (error) { console.error("Error calculando Sendero de Vida:", error); return { value: 0, calculation: 'Error en fecha' }; } }
+        function calculatePersonalYear(dateString) { if (!dateString) return { value: 0, calculation: 'Fecha inválida' }; try { const dateParts = dateString.split('-'); if (dateParts.length !== 3) throw new Error("Formato incorrecto"); const month = parseInt(dateParts[1]); const day = parseInt(dateParts[2]); const currentYear = new Date().getFullYear(); if (isNaN(month) || isNaN(day)) throw new Error("Componentes inválidos"); const reducedMonth = reduceNumber(month); const reducedDay = reduceNumber(day); let sumYearDigits = 0; for (let digit of String(currentYear)) { sumYearDigits += parseInt(digit); } const reducedCurrentYear = reduceNumber(sumYearDigits); const finalSum = reducedDay + reducedMonth + reducedCurrentYear; let reducedFinalSum = finalSum; while (reducedFinalSum > 9) { let tempSum = 0; for (let digit of String(reducedFinalSum)) { tempSum += parseInt(digit); } reducedFinalSum = tempSum; } if (reducedFinalSum === 0) reducedFinalSum = 9; const calculation = `Día(${day}) + Mes(${month}) + Año Actual(${currentYear}) → ${reducedDay} + ${reducedMonth} + ${reducedCurrentYear} = ${finalSum} → ${reducedFinalSum}`; return { value: reducedFinalSum, calculation: calculation }; } catch (error) { console.error("Error calculando Año Personal:", error); return { value: 0, calculation: 'Error en fecha' }; } }
 
-        // --- Función Principal de Cálculo y Display (CON CORRECCIÓN EN LOOKUP) ---
+        /** Capitaliza la primera letra de un string */
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
+
+        // --- Función Principal de Cálculo y Display ---
         async function calculateAndDisplay() {
             const interpretationsReady = await loadInterpretations();
             if (!interpretationsReady) {
                  console.log("No se pudieron cargar las interpretaciones, cálculo abortado.");
+                 // Mostrar mensaje al usuario también
+                 errorMessage.textContent = "No se pudieron cargar los textos de interpretación. Verificá que el archivo 'interpretaciones.json' esté junto al HTML.";
+                 errorMessage.style.display = 'block';
                  return;
             }
 
+            // Obtener valores y construir nombre completo para cálculos principales
             const nombres = nombresInput.value.trim();
             const apellidosPaternos = paternalSurnamesInput.value.trim();
             const apellidosMaternos = maternalSurnamesInput.value.trim();
+            // Usamos Nombres + Apellido Paterno + Apellido Materno para Expresión, Alma, Personalidad
             const nombreCompleto = `${nombres} ${apellidosPaternos} ${apellidosMaternos}`.trim().replace(/\s+/g, ' ');
             const birthDate = birthDateInput.value;
-            const abuelaPaterna = paternalGrandmaInput.value.trim(); // Para mostrar en sección linaje
-            const abuelaMaterna = maternalGrandmaInput.value.trim(); // Para mostrar en sección linaje
+            const abuelaPaterna = paternalGrandmaInput.value.trim(); // Guardado para futuro uso
+            const abuelaMaterna = maternalGrandmaInput.value.trim(); // Guardado para futuro uso
 
+            // **Obtener primer nombre para personalizar**
+            const primerNombre = capitalize(nombres.split(' ')[0] || 'Vos'); // Usa "Vos" si no hay nombre
 
-            if (!nombres || !apellidosPaternos || !apellidosMaternos) { alert("Por favor, completá Nombres, Apellidos Paternos y Maternos."); return; }
+            // Validaciones
+            if (!nombres || !apellidosPaternos || !apellidosMaternos) { alert("Por favor, completá Nombres, Apellido Paterno y Apellido Materno para los cálculos principales."); return; }
             if (!birthDate) { alert("Por favor, ingresá tu fecha de nacimiento."); return; }
 
             // Cálculos
@@ -262,16 +197,17 @@
             const soulUrgeResult = calculateSoulUrge(nombreCompleto);
             const personalityResult = calculatePersonality(nombreCompleto);
             const personalYearResult = calculatePersonalYear(birthDate);
-            console.log("Cálculos completados:", { lifePathResult, expressionResult, soulUrgeResult, personalityResult, personalYearResult });
+            console.log("Cálculos completados.");
 
             // Limpia y muestra área de resultados
             resultsArea.innerHTML = '';
+            errorMessage.style.display = 'none'; // Ocultar mensaje de error si todo va bien
             resultsArea.classList.remove('hidden');
 
             // Muestra Desglose Nombre
             resultsArea.innerHTML += `
                 <div class="result-section">
-                    <h3 class="result-title">Desglose del Nombre Completo</h3>
+                    <h3 class="result-title">Desglose del Nombre Completo (para Expresión, Alma, Personalidad)</h3>
                     <p class="calculation-explanation">Valor de cada letra según tabla Pitagórica (Ñ=5).</p>
                     <div class="letter-breakdown text-sm">${expressionResult.breakdown || 'Ingresá un nombre válido.'}</div>
                 </div>`;
@@ -286,16 +222,20 @@
             ];
 
             numbers.forEach(num => {
-                // **CORRECCIÓN CLAVE:** Buscar usando String(num.result.value) para coincidir con claves JSON ("1", "11", etc.)
-                const interpretationText = loadedInterpretations?.[num.interpKey]?.[String(num.result.value)] || "Interpretación detallada no disponible.";
-                console.log(`Buscando interpretación para ${num.name} (${num.interpKey}), número ${num.result.value}: ${interpretationText.substring(0,50)}...`); // Log
+                // Busca la interpretación
+                const interpretationTextRaw = loadedInterpretations?.[num.interpKey]?.[String(num.result.value)] || "Interpretación detallada no disponible.";
+                // **PERSONALIZACIÓN:** Reemplaza [Nombre] con el primer nombre ingresado
+                const interpretationTextPersonalized = interpretationTextRaw.replace(/\[Nombre\]/g, primerNombre);
+
+                console.log(`Mostrando ${num.name} (${num.result.value})`);
 
                 resultsArea.innerHTML += `
                     <div class="result-section">
                         <h3 class="result-title">${num.name}: <span class="result-value">${num.result.value}</span></h3>
                         <p class="text-xs text-gray-500 mb-1">Cálculo: ${num.result.calculation}</p>
                         <p class="calculation-explanation">${num.explanation}</p>
-                        <p class="interpretation-text">${interpretationText.replace(/\n/g, '<br>')}</p>
+                        {/* Usa el texto personalizado */}
+                        <p class="interpretation-text">${interpretationTextPersonalized.replace(/\n/g, '<br>')}</p>
                     </div>
                 `;
             });
@@ -304,7 +244,7 @@
              resultsArea.innerHTML += `
              <div class="result-section bg-calm-bg border-dashed">
                 <h3 class="result-title text-calm-text-soft">Análisis de Linaje (Próximamente)</h3>
-                <p class="calculation-explanation">Aquí se podrían analizar las vibraciones provenientes de los apellidos de las abuelas (${abuelaPaterna || 'No ingresado'} / ${abuelaMaterna || 'No ingresado'}) para explorar influencias ancestrales (requiere lógica de cálculo adicional).</p>
+                <p class="calculation-explanation">Aquí se podrían analizar las vibraciones provenientes de los apellidos de las abuelas (${paternalGrandmaInput.value.trim() || 'No ingresado'} / ${maternalGrandmaInput.value.trim() || 'No ingresado'}) para explorar influencias ancestrales (requiere lógica de cálculo adicional).</p>
                 <p class="interpretation-placeholder">Más información en futuras versiones...</p>
             </div>
             `;
