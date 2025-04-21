@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Numerológica Detallada - Rincón Zen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+<p class="text-xs text-center text-gray-500 mb-8">
+            **Importante:** Ingresá tus nombres y apellidos completos tal como figuran en tu partida de nacimiento para obtener los cálculos más precisos (Expresión, Alma, Personalidad). Los apellidos de las abuelas son para análisis más profundos (opcionales).
+        </p>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'sans': ['Lato', 'system-ui', 'sans-serif'],
+              'serif': ['Playfair Display', 'serif'],
+            },
+            colors: {
+              // Paleta Azul inspirada en Calm.es
+              'calm-primary': {
+                  light: '#B0E0E6', // PowderBlue
+                  DEFAULT: '#6495ED', // CornflowerBlue
+                  dark: '#4682B4',  // SteelBlue
+              },
+              'calm-secondary': '#8FBC8F', // DarkSeaGreen
+              'calm-bg': '#F7F9FC',     // Fondo muy claro
+              'calm-text': '#333333',   // Texto principal
+              'calm-text-soft': '#555555', // Texto secundario
+              'calm-white': '#FFFFFF',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        /* Estilos adicionales */
+        .result-section {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #FFFFFF;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #B0E0E6; /* calm-primary-light */
+        }
+        .result-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem; /* text-lgish */
+            font-weight: bold;
+            color: #4682B4; /* calm-primary-dark */
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #B0E0E6;
+            padding-bottom: 0.5rem;
+        }
+        .calculation-explanation {
+            font-size: 0.8rem; /* text-xs */
+            font-style: italic;
+            color: #6b7280; /* gray-500 */
+            margin-bottom: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .result-value {
+             font-size: 1.5rem; /* text-2xl */
+             font-weight: bold;
+             color: #6495ED; /* calm-primary */
+             display: block; /* Asegura que esté en su línea */
+             margin-bottom: 0.5rem;
+        }
+        .interpretation-placeholder {
+             font-size: 0.9rem;
+             color: #555555; /* calm-text-soft */
+             font-style: italic;
+        }
+        label {
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #cbd5e1; /* gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            outline: none;
+        }
+         input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #6495ED; /* calm-primary */
+            box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.3); /* Anillo de foco */
+         }
+
+    </style>
+</head>
+<body class="bg-calm-bg font-sans text-calm-text antialiased p-5 md:p-10">
+
+    <div class="container mx-auto max-w-3xl bg-calm-white p-6 md:p-10 rounded-lg shadow-xl">
+
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-calm-primary-dark mb-8 font-serif">Calculadora Numerológica Detallada</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-6 text-sm">
+            <div>
+                <label for="nombres" class="font-medium text-calm-text-soft">Nombres:</label>
+                <input type="text" id="nombres" name="nombres" required placeholder="Ingresá todos tus nombres" >
+            </div>
+            <div>
+                <label for="fechaNacimiento" class="font-medium text-calm-text-soft">Fecha de Nacimiento:</label>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required >
+            </div>
+            <div>
+                <label for="apellidosPaternos" class="font-medium text-calm-text-soft">Apellidos Paternos:</label>
+                <input type="text" id="apellidosPaternos" name="apellidosPaternos" placeholder="Hasta 2 apellidos" >
+            </div>
+            <div>
+                <label for="apellidosMaternos" class="font-medium text-calm-text-soft">Apellidos Maternos:</label>
+                <input type="text" id="apellidosMaternos" name="apellidosMaternos" placeholder="Hasta 2 apellidos" >
+            </div>
+             <div>
+                <label for="abuelaPaterna" class="font-medium text-calm-text-soft">Apellidos Abuela Paterna:</label>
+                <input type="text" id="abuelaPaterna" name="abuelaPaterna" placeholder="Hasta 2 apellidos (Opcional)" >
+            </div>
+             <div>
+                <label for="abuelaMaterna" class="font-medium text-calm-text-soft">Apellidos Abuela Materna:</label>
+                <input type="text" id="abuelaMaterna" name="abuelaMaterna" placeholder="Hasta 2 apellidos (Opcional)" >
+            </div>
+
+        </div>
+
+        <p class="text-xs text-center text-gray-500 mb-8">
+            **Importante:** Ingresá tus nombres y apellidos completos tal como figuran en tu partida de nacimiento para obtener los cálculos más precisos (Expresión, Alma, Personalidad). Los apellidos de las abuelas son para análisis más profundos (opcionales).
+        </p>
+
+
+        <div class="text-center mb-10">
+            <button id="calculateButton" class="bg-calm-primary hover:bg-calm-primary-dark text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 shadow-md">
+                Calcular Mis Números
+            </button>
+        </div>
+
+        <div id="resultsArea" class="space-y-6 hidden"> {/* Oculto hasta calcular */}
+
+            <div class="result-section">
+                <h3 class="result-title">Desglose del Nombre Completo (Nombres + Ap. Paternos + Ap. Maternos)</h3>
+                <p class="calculation-explanation">Aquí se mostrará cada letra de tu nombre completo (considerado para Expresión, Alma, Personalidad) con su valor numerológico según la tabla Pitagórica (A=1, B=2, C=3... I=9, J=1... S=1..., Ñ=5).</p>
+                <div id="nameBreakdown" class="letter-breakdown text-sm">
+                    </div>
+            </div>
+
+            <div class="result-section">
+                <h3 class="result-title">Sendero de Vida: <span id="lifePathValue" class="result-value inline-block ml-2">-</span></h3>
+                <p class="calculation-explanation">Se calcula sumando y reduciendo los números de tu día, mes y año de nacimiento (DD+MM+AAAA → D'+M'+Y' → Resultado). Representa tu lección principal, el camino general y las oportunidades de tu vida.</p>
+                <p id="lifePathInterpretation" class="interpretation-placeholder">Interpretación aparecerá aquí...</p>
+            </div>
+
+            <div class="result-section">
+                <h3 class="result-title">Número de Expresión: <span id="expressionValue" class="result-value inline-block ml-2">-</span></h3>
+                <p class="calculation-explanation">Se calcula sumando el valor de TODAS las letras de tu nombre completo (Nombres + Ap. Paternos + Ap. Maternos) y reduciendo el total. Representa tus talentos, habilidades innatas y la forma en que te expresás naturalmente en el mundo.</p>
+                <p id="expressionInterpretation" class="interpretation-placeholder">Interpretación aparecerá aquí...</p>
+            </div>
+
+            <div class="result-section">
+                <h3 class="result-title">Impulso del Alma: <span id="soulUrgeValue" class="result-value inline-block ml-2">-</span></h3>
+                <p class="calculation-explanation">Se calcula sumando el valor de las VOCALES (A, E, I, O, U, incluyendo acentos) de tu nombre completo y reduciendo el total. Representa tus anhelos más profundos, lo que realmente te motiva desde adentro, tus deseos del corazón.</p>
+                <p id="soulUrgeInterpretation" class="interpretation-placeholder">Interpretación aparecerá aquí...</p>
+            </div>
+
+             <div class="result-section">
+                <h3 class="result-title">Número de Personalidad: <span id="personalityValue" class="result-value inline-block ml-2">-</span></h3>
+                <p class="calculation-explanation">Se calcula sumando el valor de las CONSONANTES (incluyendo Ñ, y tratando Y como consonante en esta versión simplificada) de tu nombre completo y reduciendo el total. Representa la imagen que proyectás al exterior, cómo te perciben los demás inicialmente, tu "máscara" social.</p>
+                <p id="personalityInterpretation" class="interpretation-placeholder">Interpretación aparecerá aquí...</p>
+            </div>
+
+             <div class="result-section">
+                <h3 class="result-title">Año Personal (<span id="currentYear"></span>): <span id="personalYearValue" class="result-value inline-block ml-2">-</span></h3>
+                <p class="calculation-explanation">Se calcula sumando y reduciendo tu día de nacimiento + tu mes de nacimiento + el AÑO ACTUAL. Indica la vibración o energía principal que te influencia durante este año calendario (del 1 de Enero al 31 de Diciembre).</p>
+                <p id="personalYearInterpretation" class="interpretation-placeholder">Interpretación aparecerá aquí...</p>
+            </div>
+
+             <div class="result-section bg-calm-bg border-dashed">
+                <h3 class="result-title text-calm-text-soft">Análisis de Linaje (Próximamente)</h3>
+                <p class="calculation-explanation">Aquí se podrían analizar las vibraciones provenientes de los apellidos de las abuelas para explorar influencias ancestrales (requiere lógica adicional).</p>
+                <p class="interpretation-placeholder">Más información en futuras versiones...</p>
+            </div>
+
+        </div> </div> <script>
+        // Referencias a elementos (para futura lógica)
+        const fullNameInput = document.getElementById('nombres'); // Cambiado ID
+        const paternalSurnamesInput = document.getElementById('apellidosPaternos');
+        const maternalSurnamesInput = document.getElementById('apellidosMaternos');
+        const paternalGrandmaInput = document.getElementById('abuelaPaterna');
+        const maternalGrandmaInput = document.getElementById('abuelaMaterna');
+        const birthDateInput = document.getElementById('fechaNacimiento'); // Cambiado ID
+        const calculateButton = document.getElementById('calculateButton');
+        const resultsArea = document.getElementById('resultsArea');
+        const currentYearSpan = document.getElementById('currentYear');
+
+        // Placeholder para datos cargados
+        let loadedInterpretations = null;
+
+         // Mostrar año actual en el título de Año Personal
+         if(currentYearSpan) {
+             currentYearSpan.textContent = new Date().getFullYear();
+         }
+
+
+        // Función que se ejecutará al hacer clic (aún sin lógica de cálculo)
+        function handleCalculateClick() {
+            console.log("Botón Calcular presionado. Lógica de cálculo a implementar.");
+
+            // 1. Obtener valores de los inputs
+            const nombres = fullNameInput.value.trim();
+            const apellidosPaternos = paternalSurnamesInput.value.trim();
+            const apellidosMaternos = maternalSurnamesInput.value.trim();
+            // Combinar nombre completo para cálculos principales
+            const nombreCompleto = `${nombres} ${apellidosPaternos} ${apellidosMaternos}`.trim().replace(/\s+/g, ' '); // Limpia espacios extra
+
+            const fechaNacimiento = birthDateInput.value;
+            // ... obtener apellidos de abuelas si se usarán ...
+
+            // 2. Validar Inputs (básico)
+            if (!nombres || !apellidosPaternos || !apellidosMaternos || !fechaNacimiento) {
+                alert("Por favor, completá Nombres, Apellidos Paternos, Maternos y Fecha de Nacimiento.");
+                return;
+            }
+
+            // 3. (FUTURO) Llamar a funciones de cálculo (aún no implementadas aquí)
+            // const lifePath = calculateLifePath(fechaNacimiento);
+            // const expression = calculateExpression(nombreCompleto);
+            // ... etc ...
+
+            // 4. (FUTURO) Cargar JSON si no está cargado
+            // await loadInterpretations();
+
+            // 5. Mostrar área de resultados y placeholders (simulación)
+            resultsArea.classList.remove('hidden');
+            resultsArea.innerHTML = `
+                <div class="result-section"><h3 class="result-title">Desglose del Nombre...</h3><p>...</p></div>
+                <div class="result-section"><h3 class="result-title">Sendero de Vida: <span class="result-value">-</span></h3><p class="calculation-explanation">...</p><p class="interpretation-placeholder">Calculando...</p></div>
+                <div class="result-section"><h3 class="result-title">Expresión: <span class="result-value">-</span></h3><p class="calculation-explanation">...</p><p class="interpretation-placeholder">Calculando...</p></div>
+                <div class="result-section"><h3 class="result-title">Impulso del Alma: <span class="result-value">-</span></h3><p class="calculation-explanation">...</p><p class="interpretation-placeholder">Calculando...</p></div>
+                <div class="result-section"><h3 class="result-title">Personalidad: <span class="result-value">-</span></h3><p class="calculation-explanation">...</p><p class="interpretation-placeholder">Calculando...</p></div>
+                <div class="result-section"><h3 class="result-title">Año Personal (<span id="currentYear">${new Date().getFullYear()}</span>): <span class="result-value">-</span></h3><p class="calculation-explanation">...</p><p class="interpretation-placeholder">Calculando...</p></div>
+                 <div class="result-section bg-calm-bg border-dashed"><h3 class="result-title text-calm-text-soft">Análisis de Linaje (Próximamente)</h3><p class="calculation-explanation">...</p><p class="interpretation-placeholder">...</p></div>
+
+            `; // Actualiza el span del año aquí también
+             console.log("Mostrando estructura de resultados (sin cálculos reales aún).");
+
+
+            // 6. (FUTURO) Poblar resultados con valores e interpretaciones reales
+        }
+
+        // Asignar evento al botón
+        calculateButton.addEventListener('click', handleCalculateClick);
+
+    </script>
+
+</body>
+</html>
